@@ -40,7 +40,7 @@ https://github.com/guptadivyansh840-eng/atm-simulation-tkinter-python.git
 2. Run the Python file:
 
 ```bash
-python atm.py
+atm.py
 ```
 
 ---
