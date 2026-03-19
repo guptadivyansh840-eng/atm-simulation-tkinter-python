@@ -34,7 +34,7 @@ It allows users to simulate basic banking operations such as PIN authentication,
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-link>
+https://github.com/guptadivyansh840-eng/atm-simulation-tkinter-python.git
 ```
 
 2. Run the Python file:
