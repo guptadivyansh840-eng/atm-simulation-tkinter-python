@@ -10,13 +10,29 @@ atm.title("ATM")
 atm.geometry("300x300")
 label=tk.Label(text="PLEASE ENTER YOUR CARD",font=("Arial",25, "bold"), bg="lightblue")
 label.pack()
+def mainmenu():
+    # You must reset the text here, otherwise it stays as "Select your Account Type"
+    label.config(text="PLEASE ENTER YOUR CARD") 
+    label.pack()
+    nxt1.pack() # Bring back the button to start the process again
+    ent.delete(0,tk.END)
+
+
+def restart():
+    label4.pack_forget()
+    mainmenu()
+
 ent= tk.Entry(font=("Arial",15), bd=5)
-def destroy():
-    atm.destroy()
+def remaining_bal():
+    rembutton.pack_forget()  
+    label4.config(text= "Your Remaining Balance is " + str(balance),font=("Arial",20))
+    
+    atm.after(5000, restart)
+    
 def update():##########################
     global pin
     global pincheck
-    nxt1.destroy()
+    nxt1.pack_forget()
     label.config(text="Enter you pin")
     ent.pack(pady=10)
     nxt2.pack()
@@ -34,29 +50,28 @@ def check():
     
 def changelabeltext():#######################
     label.config(text="Select your Account Type")
-    nxt2.destroy()
-    ent.destroy()
+    nxt2.pack_forget()
+    ent.pack_forget()
     Sa.pack(pady=10)
     Cu.pack()  
 
 def option():
-    label.destroy()
-    Sa.destroy()
-    Cu.destroy()
+    label.pack_forget()
+    Sa.pack_forget()
+    Cu.pack_forget()
     balancebutton.pack(pady=10)
     withdraw.pack()
 def Balanceshow():
-    withdraw.destroy()
-    balancebutton.destroy()
+    withdraw.pack_forget()
+    balancebutton.pack_forget()
     label1.config(text="Your Account Balance is " + str(balance))
     label1.pack()
-    label1.pack()
-    label2 = tk.Label(text='Thank You 🙏', font=("Arial",20))
+    label2 = tk.Label(text='Thank You ', font=("Arial",20))
     label2.pack()
     atm.after(10000,atm.destroy)
 def withdrawamount():
-    withdraw.destroy()
-    balancebutton.destroy()
+    withdraw.pack_forget()
+    balancebutton.pack_forget()
     label3.pack()    
     entry.pack(pady=10)    
     nxt.pack()#bhut bdhiya button ko pack kiya 
@@ -65,35 +80,35 @@ def errorcheck():
         global z
         global balance
         z = int(entry.get())
-        entry.destroy()
-        nxt.destroy()
-        label3.destroy()#tthis should be focused 
+        entry.pack_forget()
+        nxt.pack_forget()
+        label3.pack_forget()#tthis should be focused 
         if (((z % 500) == 0) and (z<= balance)):#first time i used condiitional in it
-            balance = (balance - z)
+            balance = (balance - z)#balance updated
             print(balance)
-            label4= tk.Label(text="Your Payment is under Process", font=("Arial",25))
             label4.pack()
             def lab():
                 label4.config(text= "Thank You  ", font=("Arial",25))
-                labelx=tk.Label(text="🙏",font=("Segoe UI Emoji", 16))
-                labelx.pack()
-                atm.after(10000,atm.destroy)
+            
+    
+                rembutton.pack(pady=10)
+            label4.after(5000, lab)
                 
-            label4.after(5000, lab)###########bhut bdhiya combination of label timing and lablel show()
-                    
         else:
             label5= tk.Label(text="Error",font=("Arial",20)) 
             label5.pack()
             atm.after(5000,atm.destroy)## yha bhi destroy wala concept use hua h
     except:
-        entry.destroy()
-        nxt.destroy()
-        label3.destroy()
+        entry.pack_forget()
+        nxt.pack_forget()
+        label3.pack_forget()
         labelz=tk.Label(text="Please Enter valid literals",font=("Arial",20))
         labelz.pack()
 
     
     ## atm.after(15000,atm.destroy())
+
+label4= tk.Label(text="Your Payment is under Process", font=("Arial",25))
 nxt1= tk.Button(text="NEXT",font=("Arial",20),command=update,bg="Yellow",bd=10)
 nxt1.pack()
 nxt2= tk.Button(text="NEXT",font=("Arial",15, "bold"),command= check ,bd=10)
@@ -105,6 +120,7 @@ balancebutton =tk.Button(text="Check Balance",font=("Arial",14),command= Balance
 Sa=tk.Button(text="Savings",font=("Arial",14),command= option)
 Cu=tk.Button(text="Current", font=("Arial",14),command= option)
 nxt= tk.Button(text="ENTER",font=("Arial",15),command = errorcheck)
+rembutton = tk.Button(text="Remaining Balance", font=("Arial",18),fg="Red",command= remaining_bal)
 atm.mainloop()
 
 
